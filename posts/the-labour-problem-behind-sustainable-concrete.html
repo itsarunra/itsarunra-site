@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Labour Problem Behind Sustainable Concrete | Arun RA</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #dddddd;
+    }
+
+    body.dark {
+      --bg: #111111;
+      --text: #f5f5f5;
+      --muted: #aaaaaa;
+      --border: #333333;
+    }
+
+    body {
+      font-family: "Abadi MT Condensed Light", "Abadi MT Condensed", Georgia, serif;
+      max-width: 680px;
+      margin: 60px auto;
+      padding: 0 20px;
+      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    h1 {
+      margin-bottom: 0.2em;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .home-link {
+      font-size: 0.95em;
+    }
+
+    button {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 10px;
+      cursor: pointer;
+      font: inherit;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .meta {
+      margin-bottom: 2em;
+    }
+
+    p {
+      margin: 0 0 1.2em 0;
+    }
+  </style>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e74a4517d935480f91db74b61c02c98f"}'></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="home-link muted" href="/">← Home</a>
+  <button id="theme-toggle">Dark</button>
+</div>
+
+<article>
+  <h1>The Labour Problem Behind Sustainable Concrete</h1>
+  <p class="muted meta">29 March 2026</p>
+
+  <p>When we talk about sustainable concrete, we usually jump straight to materials. Lower clinker. More SCMs. Better mix design. New binders. All of that matters, obviously. But the more time I spend around live production and real jobsites, the more I think the bigger issue is construction labour, or more specifically, how practical knowledge moves through the labour force.</p>
+
+  <p>Australia’s construction workforce is large, about 1.36 million people, and the median age is now 37 and trending upwards. That clearly matters because concrete knowledge is not neatly packaged, especially at the blue-collar level. A lot of it rests with batchers, supervisors, lab staff, pump operators, finishers, and site teams who have simply seen enough jobs go well or badly to know what deserves attention. They might not describe it in textbook language, or in academic journals and conferences, but they know when a mix is going to be sticky, when a pour is starting to drift, when a supplier change is likely to cause trouble later, or when a “small” onsite water adjustment is not small at all. If and when those people retire, move on, or are spread too thin, we do not just lose labour hours. We lose judgement on the ground.</p>
+
+  <p>I think that is one reason sustainable concrete adoption still feels slower than it should. It is not only a technical problem. It is also a knowledge transfer problem. A trial can work well in the lab, a paper can look convincing, and a presentation can sound great, but none of that gets us very far unless the people actually delivering the job understand what is changing, why it is changing, and what they should be looking for in practice.</p>
+
+  <p>A concreter does not finish a slab, grab a beer, and head off to a seminar on low-carbon mix optimisation. Most do not care for that, and that is not a criticism. Most site people are not spending their evenings at conferences. They learn on the job, from the person beside them, from problems they do not want to repeat, and from jobs that went sideways once and taught everyone a lesson. That is just how the industry actually works.</p>
+
+  <p>The hard part is that construction is not set up like an industry that can train easily at scale. Around 98.5% of Australian construction companies have fewer than 20 employees, and 91% have fewer than five.</p>
+
+  <p>So when people say we need to upskill the workforce, we need to be honest about what that means. For a small private business, training is expensive in two ways. First, there is the direct cost. Then there is the bigger cost, which is time off the tools, lost production, and the risk that after you invest in someone, they take that knowledge elsewhere. That does not mean private investment in training is a bad idea. It just means we should stop pretending the answer is to send everyone to more formal events and hope culture changes on its own.</p>
+
+  <p>To me, the more workable path is not just more upskilling in the usual top-down sense, but getting better at moving knowledge from the ground up. In concrete, a lot of the most useful judgement sits with the people closest to production and placement, yet that knowledge is rarely captured and carried upward in a form that shapes decisions more broadly. Most organisations are naturally set up to push procedures down the line; they are less effective at pulling practical insight back up from the people doing the work.</p>
+
+  <p>If we want better adoption, we need better translation between those layers: site experience informing specifications, production feedback informing QA, and practical lessons being treated as part of the knowledge base rather than as a local workaround. Standards still matter, because eventually that knowledge has to land somewhere permissible and repeatable, but before that happens, it first has to be heard, understood, and taken seriously.</p>
+
+  <p>That is why I think sustainable concrete has a labour problem before it has a technology problem. We already have more technical options in academia than the market is comfortably using. The bigger challenge is whether the workforce has the confidence, context, and practical support to use them well. If we get that part right, better materials will spread faster. If we do not, we will keep talking about innovation while relying on a shrinking pool of people to quietly hold the whole thing together.</p>
+</article>
+
+<script>
+  const button = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    button.textContent = 'Light';
+  }
+
+  button.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    button.textContent = isDark ? 'Light' : 'Dark';
+  });
+</script>
+
+</body>
+</html>
