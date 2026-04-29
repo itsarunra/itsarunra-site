@@ -82,19 +82,36 @@
       font-size: 0.95em;
     }
 
-    button {
+    .top-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-button {
       background: none;
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 5px 10px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
       cursor: pointer;
       font: inherit;
       border-radius: 6px;
-      font-size: 0.9em;
+      font-size: 1em;
+      line-height: 1;
     }
 
-    button:hover {
+    .icon-button:hover {
       opacity: 0.8;
+    }
+
+    .icon-button svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
     }
 
     .meta {
@@ -113,7 +130,18 @@
 
 <div class="topbar">
   <a class="home-link muted" href="/">&larr; Home</a>
-  <button id="theme-toggle">Dark</button>
+  <div class="top-actions">
+    <button class="icon-button" id="share-button" aria-label="Share this article" title="Share this article">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5" r="3"></circle>
+        <circle cx="6" cy="12" r="3"></circle>
+        <circle cx="18" cy="19" r="3"></circle>
+        <path d="M8.6 10.7 15.4 6.3"></path>
+        <path d="M8.6 13.3 15.4 17.7"></path>
+      </svg>
+    </button>
+    <button class="icon-button" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">&#9790;</button>
+  </div>
 </div>
 
 <article>
@@ -157,18 +185,74 @@
 
 <script>
   const button = document.getElementById('theme-toggle');
+  const shareButton = document.getElementById('share-button');
   const savedTheme = localStorage.getItem('theme');
+
+  function setThemeButton(isDark) {
+    button.innerHTML = isDark ? '&#9788;' : '&#9790;';
+    button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    button.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+  }
 
   if (savedTheme === 'dark') {
     document.body.classList.add('dark');
-    button.textContent = 'Light';
   }
+
+  setThemeButton(document.body.classList.contains('dark'));
 
   button.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    button.textContent = isDark ? 'Light' : 'Dark';
+    setThemeButton(isDark);
+  });
+
+  async function copyShareUrl() {
+    const originalLabel = shareButton.getAttribute('aria-label');
+    const originalTitle = shareButton.title;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(window.location.href);
+    } else {
+      const input = document.createElement('textarea');
+      input.value = window.location.href;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.left = '-9999px';
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+
+    shareButton.setAttribute('aria-label', 'Link copied');
+    shareButton.title = 'Link copied';
+    window.setTimeout(() => {
+      shareButton.setAttribute('aria-label', originalLabel);
+      shareButton.title = originalTitle;
+    }, 1600);
+  }
+
+  shareButton.addEventListener('click', async () => {
+    const description = document.querySelector('meta[name="description"]')?.content || '';
+    const shareData = {
+      title: document.querySelector('h1')?.textContent.trim() || document.title,
+      text: description,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          return;
+        }
+      }
+    }
+
+    copyShareUrl();
   });
 </script>
 
