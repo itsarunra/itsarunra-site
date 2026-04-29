@@ -7,6 +7,7 @@ $Root = Split-Path -Parent $PSScriptRoot
 $Domain = 'https://itsarunra.com'
 $SiteName = 'itsarunra.com'
 $Author = 'Arun R. Arunothayan'
+$HomeDescription = 'Engineer working in product development across low-carbon concrete technology, advanced manufacturing, and automation. Here I write of work, and of the thoughts that gather around work.'
 $OutputDir = Join-Path $Root 'assets\og'
 $PostsDir = Join-Path $Root 'posts'
 $ProfilePath = Join-Path $Root 'profile.jpg'
@@ -152,7 +153,6 @@ function Draw-CircularImage {
 function New-ArticleOgImage {
   param(
     [string]$Title,
-    [string]$Description,
     [string]$Slug,
     [string]$OutputPath
   )
@@ -165,66 +165,70 @@ function New-ArticleOgImage {
   $graphics.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::ClearTypeGridFit
   $graphics.Clear([System.Drawing.Color]::FromArgb(255, 255, 255))
 
-  $cardBrush = New-SolidBrush '#ffffff'
   $textBrush = New-SolidBrush '#24292f'
   $mutedBrush = New-SolidBrush '#57606a'
-  $softBrush = New-SolidBrush '#f6f8fa'
-  $borderPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(208, 215, 222)), 2
-  $photoBorderPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(208, 215, 222)), 3
-
-  $cardPath = New-RoundedPath 60 60 1080 510 32
-  $graphics.FillPath($cardBrush, $cardPath)
-  $graphics.DrawPath($borderPen, $cardPath)
 
   $fontFamily = 'Segoe UI'
   $siteFont = New-Object System.Drawing.Font($fontFamily, 28, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
-  $titleFont = New-Object System.Drawing.Font($fontFamily, 56, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
-  $bodyFont = New-Object System.Drawing.Font($fontFamily, 31, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
-  $authorFont = New-Object System.Drawing.Font($fontFamily, 26, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
-  $markFont = New-Object System.Drawing.Font('Georgia', 26, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+  $titleFont = New-Object System.Drawing.Font($fontFamily, 64, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+  $authorFont = New-Object System.Drawing.Font($fontFamily, 42, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
 
   $left = 126
-  $textWidth = 695
-  $graphics.DrawString($SiteName, $siteFont, $mutedBrush, $left, 136)
-  Draw-WrappedText -Graphics $graphics -Text $Title -Font $titleFont -Brush $textBrush -X $left -Y 202 -MaxWidth $textWidth -LineHeight 66 -MaxLines 2
-  Draw-WrappedText -Graphics $graphics -Text $Description -Font $bodyFont -Brush $mutedBrush -X $left -Y 340 -MaxWidth $textWidth -LineHeight 45 -MaxLines 3
-  $graphics.DrawString($Author, $authorFont, $mutedBrush, $left, 506)
+  $textWidth = 710
+  $graphics.DrawString($SiteName, $siteFont, $mutedBrush, $left, 138)
+  Draw-WrappedText -Graphics $graphics -Text $Title -Font $titleFont -Brush $textBrush -X $left -Y 220 -MaxWidth $textWidth -LineHeight 76 -MaxLines 3
+  $graphics.DrawString($Author, $authorFont, $mutedBrush, $left, 478)
 
-  $photoSize = 220
-  $photoX = 876
-  $photoY = 196
-  $photoBg = New-RoundedPath ($photoX - 14) ($photoY - 14) ($photoSize + 28) ($photoSize + 28) 34
-  $graphics.FillPath($softBrush, $photoBg)
-  $graphics.DrawPath($borderPen, $photoBg)
+  $photoSize = 250
+  $photoX = 850
+  $photoY = 190
   Draw-CircularImage -Graphics $graphics -ImagePath $ProfilePath -X $photoX -Y $photoY -Size $photoSize
-  $graphics.DrawEllipse($photoBorderPen, $photoX, $photoY, $photoSize, $photoSize)
-
-  $markPath = New-RoundedPath 994 448 70 70 16
-  $graphics.FillPath($softBrush, $markPath)
-  $graphics.DrawPath($borderPen, $markPath)
-  $format = New-Object System.Drawing.StringFormat
-  $format.Alignment = [System.Drawing.StringAlignment]::Center
-  $format.LineAlignment = [System.Drawing.StringAlignment]::Center
-  $markRect = New-Object System.Drawing.RectangleF 994, 446, 70, 70
-  $graphics.DrawString('AR', $markFont, $textBrush, $markRect, $format)
 
   $bitmap.Save($OutputPath, [System.Drawing.Imaging.ImageFormat]::Png)
 
-  $format.Dispose()
-  $markPath.Dispose()
-  $photoBg.Dispose()
-  $cardPath.Dispose()
+  $siteFont.Dispose()
+  $titleFont.Dispose()
+  $authorFont.Dispose()
+  $textBrush.Dispose()
+  $mutedBrush.Dispose()
+  $graphics.Dispose()
+  $bitmap.Dispose()
+}
+
+function New-HomeOgImage {
+  param([string]$OutputPath)
+
+  $width = 1200
+  $height = 630
+  $bitmap = New-Object System.Drawing.Bitmap $width, $height, ([System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+  $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+  $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+  $graphics.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::ClearTypeGridFit
+  $graphics.Clear([System.Drawing.Color]::FromArgb(255, 255, 255))
+
+  $textBrush = New-SolidBrush '#24292f'
+  $mutedBrush = New-SolidBrush '#57606a'
+
+  $fontFamily = 'Segoe UI'
+  $siteFont = New-Object System.Drawing.Font($fontFamily, 30, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+  $titleFont = New-Object System.Drawing.Font($fontFamily, 58, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+  $bodyFont = New-Object System.Drawing.Font($fontFamily, 27, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+
+  $left = 126
+  $textWidth = 690
+  $graphics.DrawString('itsarunra.com/', $siteFont, $mutedBrush, $left, 134)
+  $graphics.DrawString($Author, $titleFont, $textBrush, $left, 212)
+  Draw-WrappedText -Graphics $graphics -Text $HomeDescription -Font $bodyFont -Brush $mutedBrush -X $left -Y 325 -MaxWidth $textWidth -LineHeight 40 -MaxLines 4
+
+  Draw-CircularImage -Graphics $graphics -ImagePath $ProfilePath -X 858 -Y 186 -Size 250
+
+  $bitmap.Save($OutputPath, [System.Drawing.Imaging.ImageFormat]::Png)
+
   $siteFont.Dispose()
   $titleFont.Dispose()
   $bodyFont.Dispose()
-  $authorFont.Dispose()
-  $markFont.Dispose()
-  $cardBrush.Dispose()
   $textBrush.Dispose()
   $mutedBrush.Dispose()
-  $softBrush.Dispose()
-  $borderPen.Dispose()
-  $photoBorderPen.Dispose()
   $graphics.Dispose()
   $bitmap.Dispose()
 }
@@ -276,6 +280,9 @@ function Set-ArticleMetaTags {
   return $html
 }
 
+New-HomeOgImage -OutputPath (Join-Path $OutputDir 'arun-blog-card.png')
+Write-Output "Generated $(Join-Path $OutputDir 'arun-blog-card.png')"
+
 Get-ChildItem -Path $PostsDir -Filter '*.html' | Sort-Object Name | ForEach-Object {
   $postPath = $_.FullName
   $slug = $_.BaseName
@@ -298,7 +305,7 @@ Get-ChildItem -Path $PostsDir -Filter '*.html' | Sort-Object Name | ForEach-Obje
   $description = ConvertTo-PlainText $paragraphMatches[0].Groups[1].Value
 
   $outputPath = Join-Path $OutputDir "$slug.png"
-  New-ArticleOgImage -Title $title -Description $description -Slug $slug -OutputPath $outputPath
+  New-ArticleOgImage -Title $title -Slug $slug -OutputPath $outputPath
 
   $updatedHtml = Set-ArticleMetaTags -Html $html -Title $title -Description $description -Slug $slug
   if ($updatedHtml -ne $html) {
