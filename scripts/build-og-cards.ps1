@@ -32,6 +32,17 @@ function ConvertTo-AttributeValue {
   return [System.Web.HttpUtility]::HtmlAttributeEncode($Text)
 }
 
+function Get-ExistingDescription {
+  param([string]$Html)
+
+  $descriptionMatch = [regex]::Match($Html, '<meta\s+name="description"\s+content="([^"]*)"', 'IgnoreCase')
+  if ($descriptionMatch.Success) {
+    return [System.Web.HttpUtility]::HtmlDecode($descriptionMatch.Groups[1].Value)
+  }
+
+  return ''
+}
+
 function New-SolidBrush {
   param([string]$Hex)
 
@@ -122,6 +133,23 @@ function Draw-WrappedText {
   }
 }
 
+function Draw-Lines {
+  param(
+    [System.Drawing.Graphics]$Graphics,
+    [System.Collections.Generic.List[string]]$Lines,
+    [System.Drawing.Font]$Font,
+    [System.Drawing.Brush]$Brush,
+    [float]$X,
+    [float]$Y,
+    [float]$LineHeight
+  )
+
+  foreach ($line in $Lines) {
+    $Graphics.DrawString($line, $Font, $Brush, $X, $Y)
+    $Y += $LineHeight
+  }
+}
+
 function Draw-CircularImage {
   param(
     [System.Drawing.Graphics]$Graphics,
@@ -153,6 +181,7 @@ function Draw-CircularImage {
 function New-ArticleOgImage {
   param(
     [string]$Title,
+    [string]$Date,
     [string]$Slug,
     [string]$OutputPath
   )
@@ -171,13 +200,23 @@ function New-ArticleOgImage {
   $fontFamily = 'Segoe UI'
   $siteFont = New-Object System.Drawing.Font($fontFamily, 28, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
   $titleFont = New-Object System.Drawing.Font($fontFamily, 64, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
-  $authorFont = New-Object System.Drawing.Font($fontFamily, 42, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+  $dateFont = New-Object System.Drawing.Font($fontFamily, 30, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
+  $authorFont = New-Object System.Drawing.Font($fontFamily, 40, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Pixel)
 
   $left = 126
   $textWidth = 710
+  $titleY = 220
+  $titleLineHeight = 76
   $graphics.DrawString($SiteName, $siteFont, $mutedBrush, $left, 138)
-  Draw-WrappedText -Graphics $graphics -Text $Title -Font $titleFont -Brush $textBrush -X $left -Y 220 -MaxWidth $textWidth -LineHeight 76 -MaxLines 3
-  $graphics.DrawString($Author, $authorFont, $mutedBrush, $left, 478)
+  $titleLines = Get-WrappedLines -Graphics $graphics -Text $Title -Font $titleFont -MaxWidth $textWidth -MaxLines 3
+  Draw-Lines -Graphics $graphics -Lines $titleLines -Font $titleFont -Brush $textBrush -X $left -Y $titleY -LineHeight $titleLineHeight
+
+  $dateY = $titleY + ($titleLines.Count * $titleLineHeight) + 18
+  if ($Date.Trim().Length -gt 0) {
+    $graphics.DrawString($Date, $dateFont, $mutedBrush, $left, $dateY)
+  }
+  $authorY = [Math]::Max(478, $dateY + 50)
+  $graphics.DrawString($Author, $authorFont, $textBrush, $left, $authorY)
 
   $photoSize = 250
   $photoX = 850
@@ -188,6 +227,7 @@ function New-ArticleOgImage {
 
   $siteFont.Dispose()
   $titleFont.Dispose()
+  $dateFont.Dispose()
   $authorFont.Dispose()
   $textBrush.Dispose()
   $mutedBrush.Dispose()
@@ -302,10 +342,19 @@ Get-ChildItem -Path $PostsDir -Filter '*.html' | Sort-Object Name | ForEach-Obje
   if ($paragraphMatches.Count -eq 0) {
     throw "Could not find article excerpt in $($_.Name)"
   }
-  $description = ConvertTo-PlainText $paragraphMatches[0].Groups[1].Value
+  $description = Get-ExistingDescription -Html $html
+  if ($description.Trim().Length -eq 0) {
+    $description = ConvertTo-PlainText $paragraphMatches[0].Groups[1].Value
+  }
+
+  $date = ''
+  $dateMatch = [regex]::Match($articleMatch.Value, '<p[^>]*class="[^"]*\bmeta\b[^"]*"[^>]*>([\s\S]*?)</p>', 'IgnoreCase')
+  if ($dateMatch.Success) {
+    $date = ConvertTo-PlainText $dateMatch.Groups[1].Value
+  }
 
   $outputPath = Join-Path $OutputDir "$slug.png"
-  New-ArticleOgImage -Title $title -Slug $slug -OutputPath $outputPath
+  New-ArticleOgImage -Title $title -Date $date -Slug $slug -OutputPath $outputPath
 
   $updatedHtml = Set-ArticleMetaTags -Html $html -Title $title -Description $description -Slug $slug
   if ($updatedHtml -ne $html) {
