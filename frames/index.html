@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <title>Arun R. Arunothayan</title>
-  <meta name="description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>Frames | Arun R. Arunothayan</title>
+  <meta name="description" content="Selected monochrome photographs by Arun R. Arunothayan.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="itsarunra.com">
-  <meta property="og:title" content="Arun R. Arunothayan">
-  <meta property="og:description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
-  <meta property="og:url" content="https://itsarunra.com/">
+  <meta property="og:title" content="Frames | Arun R. Arunothayan">
+  <meta property="og:description" content="Selected monochrome photographs by Arun R. Arunothayan.">
+  <meta property="og:url" content="https://itsarunra.com/frames/">
   <meta property="og:image" content="https://itsarunra.com/assets/og/arun-blog-card.png?v=2">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Social preview card for Arun R. Arunothayan's blog.">
+  <meta property="og:image:alt" content="Social preview card for Arun R. Arunothayan's website.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ItsArunRA">
   <meta name="twitter:creator" content="@ItsArunRA">
-  <meta name="twitter:title" content="Arun R. Arunothayan">
-  <meta name="twitter:description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
+  <meta name="twitter:title" content="Frames | Arun R. Arunothayan">
+  <meta name="twitter:description" content="Selected monochrome photographs by Arun R. Arunothayan.">
   <meta name="twitter:image" content="https://itsarunra.com/assets/og/arun-blog-card.png?v=2">
-  <meta name="twitter:image:alt" content="Social preview card for Arun R. Arunothayan's blog.">
+  <meta name="twitter:image:alt" content="Social preview card for Arun R. Arunothayan's website.">
 
   <style>
     :root {
@@ -50,15 +50,8 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
 
-    h1 {
-      margin: 0 0 0.2em 0;
-      letter-spacing: 0.2px;
-      line-height: 1.2;
-    }
-
     h2 {
-      margin-top: 48px;
-      margin-bottom: 16px;
+      margin: 0;
       font-size: 1.2rem;
     }
 
@@ -114,50 +107,11 @@
       stroke: currentColor;
     }
 
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      margin-bottom: 20px;
-    }
-
-    .hero-text {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .hero-text p {
-      margin: 0;
-    }
-
-    .hero-image img {
-      width: 130px;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .post-item {
-      margin-bottom: 20px;
-    }
-
-    .post-item span {
-      display: inline-block;
-      margin-top: 2px;
-    }
-
     .section-nav {
       display: flex;
       align-items: baseline;
       gap: 14px;
-      margin-top: 48px;
-      margin-bottom: 16px;
-    }
-
-    .section-nav h2 {
-      margin: 0;
+      margin-bottom: 28px;
     }
 
     .section-nav a {
@@ -171,20 +125,46 @@
       border-color: var(--text);
     }
 
+    .frames-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 28px;
+    }
+
+    .frame {
+      margin: 0;
+    }
+
+    .frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--border);
+    }
+
+    .frame figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .frame-title {
+      color: var(--text);
+    }
+
+    .frame-meta {
+      display: block;
+      margin-top: 2px;
+    }
+
     @media (max-width: 640px) {
       body {
         margin: 40px auto;
       }
 
-      .hero {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-      }
-
-      .hero-image img {
-        width: 110px;
-        height: 110px;
+      .frames-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -210,49 +190,17 @@
     </div>
   </div>
 
-  <div class="hero">
-    <div class="hero-text">
-      <h1>Arun R. Arunothayan</h1>
-      <p class="muted">
-        Engineer working in product development across low-carbon concrete technology, advanced manufacturing, and automation. Here I write of work, and of the thoughts that gather around work.
-      </p>
-    </div>
-
-    <div class="hero-image">
-      <img src="profile.jpg" alt="Portrait of Arun R. Arunothayan">
-    </div>
-  </div>
-
   <nav class="section-nav" aria-label="Content sections">
-    <h2><a class="active" href="/" aria-current="page">Posts</a></h2>
-    <a href="/frames/">Frames</a>
+    <a href="/">Posts</a>
+    <h2><a class="active" href="/frames/" aria-current="page">Frames</a></h2>
   </nav>
 
-  <p class="post-item">
-    <a href="posts/negative-gearing-and-the-fair-go.html">
-      Negative Gearing and the Fair Go
-    </a><br>
-    <span class="muted">18 May 2026</span>
-  </p>
-
-  <p class="post-item">
-    <a href="posts/the-nccs-dated-reference-dilemma.html">
-      The NCC&rsquo;s Dated Reference Dilemma
-    </a><br>
-    <span class="muted">29 April 2026</span>
-  </p>
-
-  <p class="post-item">
-    <a href="posts/on-ai-workflows.html">
-      On AI Workflows
-    </a><br>
-    <span class="muted">7 April 2026</span>
-  </p>
-  
+  <div class="frames-grid" id="frames-list" aria-live="polite"></div>
 
   <script>
     const button = document.getElementById('theme-toggle');
     const shareButton = document.getElementById('share-button');
+    const framesList = document.getElementById('frames-list');
     const savedTheme = localStorage.getItem('theme');
 
     function setThemeButton(isDark) {
@@ -303,7 +251,7 @@
     shareButton.addEventListener('click', async () => {
       const description = document.querySelector('meta[name="description"]')?.content || '';
       const shareData = {
-        title: document.querySelector('h1')?.textContent.trim() || document.title,
+        title: document.querySelector('h2')?.textContent.trim() || document.title,
         text: description,
         url: window.location.href
       };
@@ -321,6 +269,78 @@
 
       copyShareUrl();
     });
+
+    function formatDate(value) {
+      if (!value) {
+        return '';
+      }
+
+      const date = new Date(`${value}T00:00:00`);
+      return date.toLocaleDateString('en-AU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+
+    function renderFrame(frame) {
+      const figure = document.createElement('figure');
+      figure.className = 'frame';
+
+      const image = document.createElement('img');
+      image.src = frame.image;
+      image.alt = frame.title;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      figure.appendChild(image);
+
+      const caption = document.createElement('figcaption');
+      const title = document.createElement('span');
+      title.className = 'frame-title';
+      title.textContent = frame.title;
+      caption.appendChild(title);
+
+      const details = [
+        formatDate(frame.date),
+        frame.location,
+        frame.camera
+      ].filter(Boolean).join(' / ');
+
+      if (details) {
+        const meta = document.createElement('span');
+        meta.className = 'frame-meta';
+        meta.textContent = details;
+        caption.appendChild(meta);
+      }
+
+      if (frame.caption) {
+        const note = document.createElement('span');
+        note.className = 'frame-meta';
+        note.textContent = frame.caption;
+        caption.appendChild(note);
+      }
+
+      figure.appendChild(caption);
+      return figure;
+    }
+
+    async function loadFrames() {
+      try {
+        const response = await fetch('/data/frames.json', { cache: 'no-store' });
+        const frames = await response.json();
+
+        if (!frames.length) {
+          framesList.innerHTML = '<p class="muted">No frames selected yet.</p>';
+          return;
+        }
+
+        framesList.replaceChildren(...frames.map(renderFrame));
+      } catch (error) {
+        framesList.innerHTML = '<p class="muted">Frames could not be loaded.</p>';
+      }
+    }
+
+    loadFrames();
   </script>
 
 </body>
