@@ -65,18 +65,6 @@
 
   function renderArchive(posts, selectedMonth) {
     const groups = groupByMonth(posts);
-    const allItem = document.createElement('li');
-    const allLink = document.createElement('a');
-    allLink.href = makeArchiveUrl('');
-    allLink.textContent = 'All posts';
-
-    if (!selectedMonth) {
-      allLink.className = 'active';
-      allLink.setAttribute('aria-current', 'page');
-    }
-
-    allItem.appendChild(allLink);
-    archiveList.appendChild(allItem);
 
     for (const group of groups) {
       const item = document.createElement('li');
