@@ -15,7 +15,8 @@ The site is a simple, static archive of writing focused on:
 * `index.html` — homepage
 * `posts/` — individual articles
 
-* `frames/` - frames page and frame images
+* `frames/` - frames page
+* `public/frames/` - frame images
 * `data/frames.json` - frame metadata
 
 The site is intentionally minimal. No frameworks, no build system, no dependencies.
@@ -23,7 +24,7 @@ The site is intentionally minimal. No frameworks, no build system, no dependenci
 ## Adding frames
 
 1. Export the image at a web-friendly size.
-2. Add it to `frames/images/`.
+2. Add it to `public/frames/`.
 3. Add one metadata entry to `data/frames.json`.
 4. Commit and deploy.
 
@@ -34,7 +35,7 @@ Example:
   "slug": "ladder-container-weather",
   "title": "Ladder, Container, Weather",
   "date": "2026-06-03",
-  "image": "/frames/images/ladder-container-weather.jpg",
+  "image": "/public/frames/ladder-container-weather.jpg",
   "caption": "The work before the work.",
   "location": "Sydney, NSW",
   "camera": "Ricoh GR IV Monochrome"
