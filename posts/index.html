@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <title>Arun R. Arunothayan</title>
-  <meta name="description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>Posts | Arun R. Arunothayan</title>
+  <meta name="description" content="Writing by Arun R. Arunothayan.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="itsarunra.com">
-  <meta property="og:title" content="Arun R. Arunothayan">
-  <meta property="og:description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
-  <meta property="og:url" content="https://itsarunra.com/">
+  <meta property="og:title" content="Posts | Arun R. Arunothayan">
+  <meta property="og:description" content="Writing by Arun R. Arunothayan.">
+  <meta property="og:url" content="https://itsarunra.com/posts/">
   <meta property="og:image" content="https://itsarunra.com/assets/og/arun-blog-card.png?v=2">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
@@ -19,8 +19,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ItsArunRA">
   <meta name="twitter:creator" content="@ItsArunRA">
-  <meta name="twitter:title" content="Arun R. Arunothayan">
-  <meta name="twitter:description" content="Concrete, automation, research-to-production, and the thoughts that gather around work.">
+  <meta name="twitter:title" content="Posts | Arun R. Arunothayan">
+  <meta name="twitter:description" content="Writing by Arun R. Arunothayan.">
   <meta name="twitter:image" content="https://itsarunra.com/assets/og/arun-blog-card.png?v=2">
   <meta name="twitter:image:alt" content="Social preview card for Arun R. Arunothayan's blog.">
 
@@ -148,6 +148,29 @@
       margin-top: 2px;
     }
 
+    .section-nav {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    .section-nav h2 {
+      margin: 0;
+    }
+
+    .section-nav a {
+      color: var(--muted);
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .section-nav a.active {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
     .posts-layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 180px;
@@ -176,29 +199,6 @@
     }
 
     .archive-list a.active {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    .section-nav {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      margin-top: 48px;
-      margin-bottom: 16px;
-    }
-
-    .section-nav h2 {
-      margin: 0;
-    }
-
-    .section-nav a {
-      color: var(--muted);
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-    }
-
-    .section-nav a.active {
       color: var(--text);
       border-color: var(--text);
     }
@@ -256,12 +256,12 @@
     </div>
 
     <div class="hero-image">
-      <img src="profile.jpg" alt="Portrait of Arun R. Arunothayan">
+      <img src="/profile.jpg" alt="Portrait of Arun R. Arunothayan">
     </div>
   </div>
 
   <nav class="section-nav" aria-label="Content sections">
-    <h2><a class="active" href="/" aria-current="page">Posts</a></h2>
+    <h2><a class="active" href="/posts/" aria-current="page">Posts</a></h2>
     <a href="/frames/">Frames</a>
   </nav>
 
@@ -272,7 +272,6 @@
       <ul class="archive-list" id="posts-archive"></ul>
     </aside>
   </div>
-  
 
   <script>
     const button = document.getElementById('theme-toggle');
@@ -347,7 +346,7 @@
     });
   </script>
   <script>
-    window.POSTS_ARCHIVE_BASE_PATH = '/';
+    window.POSTS_ARCHIVE_BASE_PATH = '/posts/';
   </script>
   <script src="/assets/posts-archive.js"></script>
 

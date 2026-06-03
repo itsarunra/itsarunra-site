@@ -323,7 +323,7 @@ function Set-ArticleMetaTags {
 New-HomeOgImage -OutputPath (Join-Path $OutputDir 'arun-blog-card.png')
 Write-Output "Generated $(Join-Path $OutputDir 'arun-blog-card.png')"
 
-Get-ChildItem -Path $PostsDir -Filter '*.html' | Sort-Object Name | ForEach-Object {
+Get-ChildItem -Path $PostsDir -Filter '*.html' | Where-Object { $_.Name -ne 'index.html' } | Sort-Object Name | ForEach-Object {
   $postPath = $_.FullName
   $slug = $_.BaseName
   $html = Get-Content -Raw -Encoding UTF8 $postPath
@@ -358,8 +358,11 @@ Get-ChildItem -Path $PostsDir -Filter '*.html' | Sort-Object Name | ForEach-Obje
 
   $updatedHtml = Set-ArticleMetaTags -Html $html -Title $title -Description $description -Slug $slug
   if ($updatedHtml -ne $html) {
-    Set-Content -NoNewline -Encoding UTF8 -Path $postPath -Value $updatedHtml
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($postPath, $updatedHtml, $utf8NoBom)
   }
 
   Write-Output "Generated $outputPath"
 }
+
+& (Join-Path $PSScriptRoot 'build-posts-data.ps1')

@@ -13,11 +13,13 @@ The site is a simple, static archive of writing focused on:
 ## Structure
 
 * `index.html` — homepage
-* `posts/` — individual articles
+* `posts/` — posts index and individual articles
 
 * `frames/` - frames page
 * `public/frames/` - frame images
 * `data/frames.json` - frame metadata
+* `data/posts.json` - generated post metadata
+* `scripts/build-posts-data.ps1` - regenerates post metadata from article dates
 
 The site is intentionally minimal. No frameworks, no build system, no dependencies.
 
