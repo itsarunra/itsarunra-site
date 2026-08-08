@@ -28,7 +28,7 @@ function Convert-DateToIso {
   return $date.ToString('yyyy-MM-dd')
 }
 
-$posts = Get-ChildItem -Path $PostsDir -Filter '*.html' |
+$posts = @(Get-ChildItem -Path $PostsDir -Filter '*.html' |
   Where-Object { $_.Name -ne 'index.html' } |
   ForEach-Object {
     $slug = $_.BaseName
@@ -57,9 +57,13 @@ $posts = Get-ChildItem -Path $PostsDir -Filter '*.html' |
       url = "/posts/$slug.html"
     }
   } |
-  Sort-Object date -Descending
+  Sort-Object date -Descending)
 
-$json = $posts | ConvertTo-Json -Depth 4
+if ($posts.Count -eq 0) {
+  $json = '[]'
+} else {
+  $json = $posts | ConvertTo-Json -Depth 4
+}
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 [System.IO.File]::WriteAllText($OutputPath, ($json + "`n"), $utf8NoBom)
 Write-Output "Generated $OutputPath"

@@ -84,7 +84,7 @@
 
   function renderPosts(posts) {
     if (!posts.length) {
-      postsList.innerHTML = '<p class="muted">No posts in this month.</p>';
+      postsList.replaceChildren();
       return;
     }
 
